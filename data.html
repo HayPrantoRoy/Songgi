@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Data Table</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1f2937;
+            line-height: 1.5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: #f9fafb;
+            padding: 32px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .controls {
+            padding: 24px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: #9ca3af;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #374151;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-box input::placeholder {
+            color: #9ca3af;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            padding: 0 24px 24px 24px;
+            min-width: 1200px;
+        }
+
+        .data-table thead tr {
+            background: none;
+        }
+
+        .data-table th {
+            background: none;
+            padding: 16px 16px 8px 16px;
+            text-align: left;
+            font-weight: 500;
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+        }
+
+        .data-table tbody tr {
+            background: #f8fafc;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .data-table tbody tr:hover {
+            background: #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-table td {
+            padding: 20px 16px;
+            font-size: 14px;
+            border: none;
+            background: transparent;
+            vertical-align: middle;
+        }
+
+        .data-table tbody tr td:first-child {
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        .data-table tbody tr td:last-child {
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .company-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid #e5e7eb;
+        }
+
+        .company-name {
+            font-weight: 500;
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .contact-info {
+            line-height: 1.4;
+        }
+
+        .contact-name {
+            font-weight: 500;
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .contact-email {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status.active {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .status.active .status-dot {
+            background: #059669;
+        }
+
+        .status.inactive {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .status.inactive .status-dot {
+            background: #dc2626;
+        }
+
+        .status.pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status.pending .status-dot {
+            background: #d97706;
+        }
+
+        .priority {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .priority.high { color: #dc2626; }
+        .priority.medium { color: #d97706; }
+        .priority.low { color: #059669; }
+
+        .revenue {
+            font-weight: 600;
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .employees {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .phone {
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        .location {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .industry {
+            background: #f3f4f6;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #374151;
+            display: inline-block;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .action-btn:hover {
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        .action-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .id-badge {
+            background: #3b82f6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .last-contact {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 24px 16px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .controls {
+                padding: 16px;
+            }
+
+            .data-table {
+                padding: 0 16px 16px 16px;
+                min-width: 900px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 16px 12px;
+            }
+
+            .company-img {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Business Data Management</h1>
+            <p>Manage and track your business contacts</p>
+        </div>
+
+        <div class="controls">
+            <div class="search-container">
+                <svg class="search-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                </svg>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search companies, contacts, locations...">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Contact</th>
+                        <th>Phone</th>
+                        <th>Location</th>
+                        <th>Industry</th>
+                        <th>Revenue</th>
+                        <th>Employees</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Last Contact</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <div class="company-info">
+                                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop&crop=center" class="company-img" alt="TechCorp">
+                                <span class="company-name">TechCorp Solutions</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="contact-info">
+                                <div class="contact-name">John Smith</div>
+                                <div class="contact-email">john@techcorp.com</div>
+                            </div>
+                        </td>
+                        <td><span class="phone">+1-555-0101</span></td>
+                        <td><span class="location">New York, NY</span></td>
+                        <td><span class="industry">Technology</span></td>
+                        <td><span class="revenue">$2.5M</span></td>
+                        <td><span class="employees">45</span></td>
+                        <td>
+                            <span class="status active">
+                                <span class="status-dot"></span>
+                                Active
+                            </span>
+                        </td>
+                        <td><span class="priority high">High</span></td>
+                        <td><span class="last-contact">2024-08-01</span></td>
+                        <td>
+                            <div class="actions">
+                                <div class="action-btn" title="Edit">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                </div>
+                                <div class="action-btn" title="Delete">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 112 0v4a1 1 0 11-2 0V9zm4 0a1 1 0 112 0v4a1 1 0 11-2 0V9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>
+                            <div class="company-info">
+                                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=center" class="company-img" alt="Global Manufacturing">
+                                <span class="company-name">Global Manufacturing Inc</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="contact-info">
+                                <div class="contact-name">Sarah Johnson</div>
+                                <div class="contact-email">sarah@globalmfg.com</div>
+                            </div>
+                        </td>
+                        <td><span class="phone">+1-555-0202</span></td>
+                        <td><span class="location">Chicago, IL</span></td>
+                        <td><span class="industry">Manufacturing</span></td>
+                        <td><span class="revenue">$8.3M</span></td>
+                        <td><span class="employees">120</span></td>
+                        <td>
+                            <span class="status active">
+                                <span class="status-dot"></span>
+                                Active
+                            </span>
+                        </td>
+                        <td><span class="priority medium">Medium</span></td>
+                        <td><span class="last-contact">2024-07-28</span></td>
+                        <td>
+                            <div class="actions">
+                                <div class="action-btn" title="Edit">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                </div>
+                                <div class="action-btn" title="Delete">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 112 0v4a1 1 0 11-2 0V9zm4 0a1 1 0 112 0v4a1 1 0 11-2 0V9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>
+                            <div class="company-info">
+                                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=100&h=100&fit=crop&crop=center" class="company-img" alt="Metro Retail">
+                                <span class="company-name">Metro Retail Group</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="contact-info">
+                                <div class="contact-name">Mike Davis</div>
+                                <div class="contact-email">mike@metroretail.com</div>
+                            </div>
+                        </td>
+                        <td><span class="phone">+1-555-0303</span></td>
+                        <td><span class="location">Los Angeles, CA</span></td>
+                        <td><span class="industry">Retail</span></td>
+                        <td><span class="revenue">$4.7M</span></td>
+                        <td><span class="employees">85</span></td>
+                        <td>
+                            <span class="status pending">
+                                <span class="status-dot"></span>
+                                Pending
+                            </span>
+                        </td>
+                        <td><span class="priority high">High</span></td>
+                        <td><span class="last-contact">2024-08-03</span></td>
+                        <td>
+                            <div class="actions">
+                                <div class="action-btn" title="Edit">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                </div>
+                                <div class="action-btn" title="Delete">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 112 0v4a1 1 0 11-2 0V9zm4 0a1 1 0 112 0v4a1 1 0 11-2 0V9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>
+                            <div class="company-info">
+                                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=100&h=100&fit=crop&crop=center" class="company-img" alt="Healthcare Plus">
+                                <span class="company-name">Healthcare Plus</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="contact-info">
+                                <div class="contact-name">Lisa Brown</div>
+                                <div class="contact-email">lisa@healthplus.com</div>
+                            </div>
+                        </td>
+                        <td><span class="phone">+1-555-0404</span></td>
+                        <td><span class="location">Miami, FL</span></td>
+                        <td><span class="industry">Healthcare</span></td>
+                        <td><span class="revenue">$3.2M</span></td>
+                        <td><span class="employees">65</span></td>
+                        <td>
+                            <span class="status active">
+                                <span class="status-dot"></span>
+                                Active
+                            </span>
+                        </td>
+                        <td><span class="priority medium">Medium</span></td>
+                        <td><span class="last-contact">2024-07-25</span></td>
+                        <td>
+                            <div class="actions">
+                                <div class="action-btn" title="Edit">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                </div>
+                                <div class="action-btn" title="Delete">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 112 0v4a1 1 0 11-2 0V9zm4 0a1 1 0 112 0v4a1 1 0 11-2 0V9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>
+                            <div class="company-info">
+                                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=100&h=100&fit=crop&crop=center" class="company-img" alt="Financial Services">
+                                <span class="company-name">Financial Services Corp</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="contact-info">
+                                <div class="contact-name">Robert Wilson</div>
+                                <div class="contact-email">robert@finservices.com</div>
+                            </div>
+                        </td>
+                        <td><span class="phone">+1-555-0505</span></td>
+                        <td><span class="location">Boston, MA</span></td>
+                        <td><span class="industry">Finance</span></td>
+                        <td><span class="revenue">$6.8M</span></td>
+                        <td><span class="employees">95</span></td>
+                        <td>
+                            <span class="status inactive">
+                                <span class="status-dot"></span>
+                                Inactive
+                            </span>
+                        </td>
+                        <td><span class="priority low">Low</span></td>
+                        <td><span class="last-contact">2024-06-15</span></td>
+                        <td>
+                            <div class="actions">
+                                <div class="action-btn" title="Edit">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                </div>
+                                <div class="action-btn" title="Delete">
+                                    <svg fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 112 0v4a1 1 0 11-2 0V9zm4 0a1 1 0 112 0v4a1 1 0 11-2 0V9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality only
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const tbody = document.getElementById('tableBody');
+            const rows = tbody.querySelectorAll('tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
