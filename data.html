@@ -613,7 +613,7 @@
 
         @media (max-width: 480px) {
             .data-table {
-                min-width: 400px;
+                min-width: 350px;
             }
             
             .company-info {
@@ -629,6 +629,34 @@
     </style>
 </head>
 <body>
+    <div class="songgi-navbar-wrapper">
+        <div class="songgi-brand-name">Songgi</div>
+        <div class="user-info" id="userInfo" style="display: none;">
+            <span id="currentUser"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        <div class="songgi-toggle-button" onclick="toggleSonggiSlideMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="songgi-slide-panel" id="songgiSlideMenu">
+        <div class="songgi-close-btn" onclick="toggleSonggiSlideMenu()">×</div>
+        <h3 class="songgi-slide-header">Menu</h3>
+        <a href="#" class="songgi-slide-link" data-roles="admin-store">Raw Material</a>
+        <a href="#" class="songgi-slide-link" data-roles="admin-store">Inventory</a>
+        <a href="#" class="songgi-slide-link" data-roles="admin-store">Dispatch</a>
+        <a href="#" class="songgi-slide-link" data-roles="admin-accountant">Payment</a>
+        <a href="#" class="songgi-slide-link" data-roles="dealer">Orders</a>
+        <a href="#" class="songgi-slide-link" data-roles="dealer">Received</a>
+        <a href="#" class="songgi-slide-link" data-roles="dealer">Account</a>
+        <a href="#" class="songgi-slide-link" data-roles="dealer">DSR Assign</a>
+        <a href="#" class="songgi-slide-link" data-roles="dsr">Delivery</a>
+    </div>
+
+    <div class="songgi-overlay-bg" id="songgiOverlay" onclick="toggleSonggiSlideMenu()"></div>
     <nav class="bottom-nav">
         <div class="nav-container">
             <a href="index.php" class="nav-item active">
@@ -680,6 +708,7 @@
                 <thead>
                     <tr>
                         <th>Company</th>
+                        <th>Name</th>
                         
                         <th>Actions</th>
                     </tr>
@@ -801,7 +830,7 @@
         // Business data storage and management
         let businessData = [];
         let currentPage = 1;
-        const recordsPerPage = 10;
+        const recordsPerPage = 25;
         let filteredData = [];
         let editingIndex = -1;
 
@@ -824,7 +853,7 @@
             const demoData = [
                 {
                     id: 1,
-                    companyName: 'TechCorp Solutions',
+                    companyName: 'TechCorp',
                     contactName: 'John Smith',
                     contactEmail: 'john@techcorp.com',
                     phone: '+1-555-0101',
@@ -839,7 +868,7 @@
                 },
                 {
                     id: 2,
-                    companyName: 'Global Manufacturing Inc',
+                    companyName: 'Global',
                     contactName: 'Sarah Johnson',
                     contactEmail: 'sarah@globalmfg.com',
                     phone: '+1-555-0202',
@@ -854,7 +883,7 @@
                 },
                 {
                     id: 3,
-                    companyName: 'Metro Retail Group',
+                    companyName: 'Metro',
                     contactName: 'Mike Davis',
                     contactEmail: 'mike@metroretail.com',
                     phone: '+1-555-0303',
@@ -869,7 +898,7 @@
                 },
                 {
                     id: 4,
-                    companyName: 'Healthcare Plus',
+                    companyName: 'Healthcare',
                     contactName: 'Lisa Brown',
                     contactEmail: 'lisa@healthplus.com',
                     phone: '+1-555-0404',
@@ -884,7 +913,7 @@
                 },
                 {
                     id: 5,
-                    companyName: 'Financial Services Corp',
+                    companyName: 'Financial',
                     contactName: 'Robert Wilson',
                     contactEmail: 'robert@finservices.com',
                     phone: '+1-555-0505',
@@ -899,7 +928,7 @@
                 },
                 {
                     id: 6,
-                    companyName: 'EduTech Solutions',
+                    companyName: 'EduTech',
                     contactName: 'Emma Thompson',
                     contactEmail: 'emma@edutech.com',
                     phone: '+1-555-0606',
@@ -914,7 +943,7 @@
                 },
                 {
                     id: 7,
-                    companyName: 'Real Estate Partners',
+                    companyName: 'Real',
                     contactName: 'David Miller',
                     contactEmail: 'david@realtypartners.com',
                     phone: '+1-555-0707',
@@ -929,7 +958,7 @@
                 },
                 {
                     id: 8,
-                    companyName: 'Consulting Experts',
+                    companyName: 'Consulting',
                     contactName: 'Jennifer Lee',
                     contactEmail: 'jennifer@consultexperts.com',
                     phone: '+1-555-0808',
@@ -944,7 +973,7 @@
                 },
                 {
                     id: 9,
-                    companyName: 'Green Energy Co',
+                    companyName: 'Green',
                     contactName: 'Michael Green',
                     contactEmail: 'michael@greenenergy.com',
                     phone: '+1-555-0909',
@@ -959,7 +988,7 @@
                 },
                 {
                     id: 10,
-                    companyName: 'Food Distribution LLC',
+                    companyName: 'Food',
                     contactName: 'Rachel Garcia',
                     contactEmail: 'rachel@fooddist.com',
                     phone: '+1-555-1010',
@@ -974,7 +1003,7 @@
                 },
                 {
                     id: 11,
-                    companyName: 'Digital Marketing Pro',
+                    companyName: 'Digital',
                     contactName: 'Alex Johnson',
                     contactEmail: 'alex@digitalmarketing.com',
                     phone: '+1-555-1111',
@@ -989,7 +1018,7 @@
                 },
                 {
                     id: 12,
-                    companyName: 'Construction Masters',
+                    companyName: 'Construction',
                     contactName: 'Tom Anderson',
                     contactEmail: 'tom@constructionmasters.com',
                     phone: '+1-555-1212',
@@ -1004,7 +1033,7 @@
                 },
                 {
                     id: 13,
-                    companyName: 'Fashion Retail Chain',
+                    companyName: 'Fashion',
                     contactName: 'Sophie Williams',
                     contactEmail: 'sophie@fashionretail.com',
                     phone: '+1-555-1313',
@@ -1019,7 +1048,7 @@
                 },
                 {
                     id: 14,
-                    companyName: 'Medical Supplies Inc',
+                    companyName: 'Medical',
                     contactName: 'Dr. James Wilson',
                     contactEmail: 'james@medsupplies.com',
                     phone: '+1-555-1414',
@@ -1034,7 +1063,7 @@
                 },
                 {
                     id: 15,
-                    companyName: 'Investment Solutions',
+                    companyName: 'Investmenta',
                     contactName: 'Maria Rodriguez',
                     contactEmail: 'maria@investsolutions.com',
                     phone: '+1-555-1515',
@@ -1046,7 +1075,233 @@
                     priority: 'high',
                     lastContact: '2024-08-01',
                     image: companyImages[4]
-                }
+                },
+                {
+    id: 16,
+    companyName: 'Finax',
+    contactName: 'Liam Carter',
+    contactEmail: 'liam@finax.com',
+    phone: '+1-555-1616',
+    location: 'Chicago, IL',
+    industry: 'Finance',
+    revenue: '$9.8M',
+    employees: 84,
+    status: 'active',
+    priority: 'medium',
+    lastContact: '2024-07-25',
+    image: companyImages[1]
+},
+{
+    id: 17,
+    companyName: 'Mediva',
+    contactName: 'Chloe Zhang',
+    contactEmail: 'chloe@mediva.com',
+    phone: '+1-555-1717',
+    location: 'Houston, TX',
+    industry: 'Healthcare',
+    revenue: '$7.3M',
+    employees: 77,
+    status: 'pending',
+    priority: 'low',
+    lastContact: '2024-07-30',
+    image: companyImages[2]
+},
+{
+    id: 18,
+    companyName: 'Grexon',
+    contactName: 'Owen Brooks',
+    contactEmail: 'owen@grexon.com',
+    phone: '+1-555-1818',
+    location: 'Atlanta, GA',
+    industry: 'Energy',
+    revenue: '$13.2M',
+    employees: 102,
+    status: 'inactive',
+    priority: 'high',
+    lastContact: '2024-06-20',
+    image: companyImages[3]
+},
+{
+    id: 19,
+    companyName: 'Nexora',
+    contactName: 'Ava Patel',
+    contactEmail: 'ava@nexora.com',
+    phone: '+1-555-1919',
+    location: 'Phoenix, AZ',
+    industry: 'Tech',
+    revenue: '$16.1M',
+    employees: 142,
+    status: 'active',
+    priority: 'high',
+    lastContact: '2024-08-03',
+    image: companyImages[4]
+},
+{
+    id: 20,
+    companyName: 'Zentix',
+    contactName: 'Mason Lee',
+    contactEmail: 'mason@zentix.com',
+    phone: '+1-555-2020',
+    location: 'Denver, CO',
+    industry: 'Software',
+    revenue: '$11.9M',
+    employees: 95,
+    status: 'pending',
+    priority: 'medium',
+    lastContact: '2024-08-01',
+    image: companyImages[5]
+},
+{
+    id: 21,
+    companyName: 'Tegra',
+    contactName: 'Lily Rivera',
+    contactEmail: 'lily@tegra.com',
+    phone: '+1-555-2121',
+    location: 'Boston, MA',
+    industry: 'Education',
+    revenue: '$4.5M',
+    employees: 66,
+    status: 'inactive',
+    priority: 'low',
+    lastContact: '2024-07-22',
+    image: companyImages[6]
+},
+{
+    id: 22,
+    companyName: 'Virex',
+    contactName: 'Elijah Martin',
+    contactEmail: 'elijah@virex.com',
+    phone: '+1-555-2222',
+    location: 'San Diego, CA',
+    industry: 'Biotech',
+    revenue: '$15.4M',
+    employees: 132,
+    status: 'active',
+    priority: 'high',
+    lastContact: '2024-07-18',
+    image: companyImages[7]
+},
+{
+    id: 23,
+    companyName: 'Quantro',
+    contactName: 'Isla Gomez',
+    contactEmail: 'isla@quantro.com',
+    phone: '+1-555-2323',
+    location: 'Austin, TX',
+    industry: 'Analytics',
+    revenue: '$6.9M',
+    employees: 59,
+    status: 'pending',
+    priority: 'medium',
+    lastContact: '2024-08-04',
+    image: companyImages[8]
+},
+{
+    id: 24,
+    companyName: 'Syntra',
+    contactName: 'Noah Clark',
+    contactEmail: 'noah@syntra.com',
+    phone: '+1-555-2424',
+    location: 'Portland, OR',
+    industry: 'Consulting',
+    revenue: '$10.2M',
+    employees: 87,
+    status: 'active',
+    priority: 'low',
+    lastContact: '2024-07-28',
+    image: companyImages[9]
+},
+{
+    id: 25,
+    companyName: 'Brixel',
+    contactName: 'Emily Wright',
+    contactEmail: 'emily@brixel.com',
+    phone: '+1-555-2525',
+    location: 'Seattle, WA',
+    industry: 'Real Estate',
+    revenue: '$8.4M',
+    employees: 91,
+    status: 'inactive',
+    priority: 'medium',
+    lastContact: '2024-06-30',
+    image: companyImages[1]
+},
+{
+    id: 26,
+    companyName: 'Clyro',
+    contactName: 'Jack Turner',
+    contactEmail: 'jack@clyro.com',
+    phone: '+1-555-2626',
+    location: 'Orlando, FL',
+    industry: 'Retail',
+    revenue: '$6.2M',
+    employees: 68,
+    status: 'active',
+    priority: 'high',
+    lastContact: '2024-07-10',
+    image: companyImages[2]
+},
+{
+    id: 27,
+    companyName: 'Zyrex',
+    contactName: 'Sophia Nguyen',
+    contactEmail: 'sophia@zyrex.com',
+    phone: '+1-555-2727',
+    location: 'San Jose, CA',
+    industry: 'IT',
+    revenue: '$17.3M',
+    employees: 151,
+    status: 'pending',
+    priority: 'medium',
+    lastContact: '2024-08-02',
+    image: companyImages[3]
+},
+{
+    id: 28,
+    companyName: 'Rovix',
+    contactName: 'Henry Bell',
+    contactEmail: 'henry@rovix.com',
+    phone: '+1-555-2828',
+    location: 'Salt Lake City, UT',
+    industry: 'Hardware',
+    revenue: '$13.9M',
+    employees: 103,
+    status: 'active',
+    priority: 'high',
+    lastContact: '2024-07-29',
+    image: companyImages[4]
+},
+{
+    id: 29,
+    companyName: 'Luxor',
+    contactName: 'Grace Allen',
+    contactEmail: 'grace@luxor.com',
+    phone: '+1-555-2929',
+    location: 'Charlotte, NC',
+    industry: 'Fashion',
+    revenue: '$5.1M',
+    employees: 48,
+    status: 'inactive',
+    priority: 'low',
+    lastContact: '2024-06-15',
+    image: companyImages[5]
+},
+{
+    id: 30,
+    companyName: 'Jivra',
+    contactName: 'Lucas Scott',
+    contactEmail: 'lucas@jivra.com',
+    phone: '+1-555-3030',
+    location: 'Tampa, FL',
+    industry: 'Services',
+    revenue: '$7.6M',
+    employees: 73,
+    status: 'pending',
+    priority: 'medium',
+    lastContact: '2024-07-31',
+    image: companyImages[6]
+}
+
             ];
 
             businessData = demoData;
@@ -1137,38 +1392,38 @@
 
         // Update pagination
         function updatePagination() {
-            const totalPages = Math.ceil(filteredData.length / recordsPerPage);
-            const startRecord = (currentPage - 1) * recordsPerPage + 1;
-            const endRecord = Math.min(currentPage * recordsPerPage, filteredData.length);
+    const totalPages = Math.ceil(filteredData.length / recordsPerPage);
+    const startRecord = (currentPage - 1) * recordsPerPage + 1;
+    const endRecord = Math.min(currentPage * recordsPerPage, filteredData.length);
 
-            document.getElementById('startRecord').textContent = filteredData.length > 0 ? startRecord : 0;
-            document.getElementById('endRecord').textContent = endRecord;
-            document.getElementById('totalRecords').textContent = filteredData.length;
+    document.getElementById('startRecord').textContent = filteredData.length > 0 ? startRecord : 0;
+    document.getElementById('endRecord').textContent = endRecord;
+    document.getElementById('totalRecords').textContent = filteredData.length;
 
-            // Update pagination buttons
-            document.getElementById('prevBtn').disabled = currentPage === 1;
-            document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
+    // Enable/Disable prev/next buttons
+    document.getElementById('prevBtn').disabled = currentPage === 1;
+    document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
 
-            // Generate page numbers
-            const pageNumbers = document.getElementById('pageNumbers');
-            pageNumbers.innerHTML = '';
+    // Clear existing pagination
+    const pageNumbers = document.getElementById('pageNumbers');
+    pageNumbers.innerHTML = '';
 
-            const maxVisiblePages = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-            if (endPage - startPage < maxVisiblePages - 1) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
-            }
-
-            for (let i = startPage; i <= endPage; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-                pageBtn.textContent = i;
-                pageBtn.onclick = () => goToPage(i);
-                pageNumbers.appendChild(pageBtn);
-            }
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'page-btn';
+        if (i === currentPage) {
+            pageBtn.classList.add('active');
         }
+        pageBtn.textContent = i;
+        pageBtn.onclick = () => goToPage(i);
+        pageNumbers.appendChild(pageBtn);
+    }
+
+    // Optional: make buttons inline if needed via CSS
+    pageNumbers.style.display = 'flex';
+    pageNumbers.style.gap = '6px';
+}
+
 
         // Pagination functions
         function changePage(direction) {
