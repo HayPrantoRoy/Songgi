@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Songi-Login Page</title>
+  <title>Songgi - Company Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Fonts -->
+  <!-- Fonts and Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     * {
@@ -30,17 +31,16 @@
     .screen {
       background: linear-gradient(90deg, #5D54A4, #7C78B8);
       position: relative;
-      height: auto;
       width: 100%;
-      max-width: 360px;
+      max-width: 400px;
       border-radius: 20px;
       box-shadow: 0px 0px 24px #5C5696;
       overflow: hidden;
     }
 
     .screen__content {
-      z-index: 1;
       position: relative;
+      z-index: 1;
       padding: 30px 20px;
       display: flex;
       flex-direction: column;
@@ -55,18 +55,19 @@
       margin-right: 65%;
     }
 
-    .login {
+    .register {
       width: 100%;
     }
 
     .login__field {
-      padding: 20px 0px;
+      padding: 12px 0px;
       position: relative;
     }
 
     .login__icon {
       position: absolute;
-      top: 30px;
+      top: 24px;
+      left: 0;
       color: #7875B5;
     }
 
@@ -74,16 +75,20 @@
       border: none;
       border-bottom: 2px solid #D1D1D4;
       background: none;
-      padding: 10px;
-      padding-left: 24px;
+      padding: 10px 10px 10px 26px;
       font-weight: 700;
       width: 100%;
       transition: .2s;
+      color: black;
     }
 
     .login__input:focus {
       outline: none;
-      border-bottom-color: #6A679E;
+       border-bottom-color: #6A679E;
+    }
+
+    .login__input::placeholder {
+      color: #8a8a99;
     }
 
     .login__submit,
@@ -114,6 +119,25 @@
       font-size: 24px;
       margin-left: auto;
       color: #7875B5;
+    }
+
+    .strength {
+      height: 6px;
+      width: 100%;
+      margin-top: 4px;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    .match {
+      font-size: 12px;
+      color: black;
+      margin-top: 4px;
+    }
+
+    input[type="file"] {
+      color: white;
+      font-size: 12px;
     }
 
     .screen__background {
@@ -182,25 +206,46 @@
   <div class="container">
     <div class="screen">
       <div class="screen__content">
-        <!-- TEXT-BASED LOGO -->
         <div class="text-logo">Songgi</div>
 
-        <form class="login" onsubmit="handleLogin(event)">
+        <form class="register">
+          
           <div class="login__field">
             <i class="login__icon fas fa-user"></i>
-            <input type="text" class="login__input" id="username" placeholder="Number" required>
+            <input type="text" class="login__input" placeholder="Your Name" required />
+          </div>
+          <div class="login__field">
+            <i class="login__icon fas fa-building"></i>
+            <input type="text" class="login__input" placeholder="Company Name" required />
+          </div>
+          <div class="login__field">
+            <i class="login__icon fas fa-envelope"></i>
+            <input type="email" class="login__input" placeholder="Email" required />
+          </div>
+          <div class="login__field">
+            <i class="login__icon fa-solid fa-phone-volume"></i>
+            <input type="tel" class="login__input" placeholder="Mobile Number" required />
           </div>
           <div class="login__field">
             <i class="login__icon fas fa-lock"></i>
-            <input type="password" class="login__input" id="password" placeholder="Password" required>
+            <input type="password" class="login__input" id="password" placeholder="Password" required oninput="checkStrength()" />
+            <div class="strength" id="strengthBar"></div>
           </div>
-          <button type="submit" class="login__submit">
+          <div class="login__field">
+            <i class="login__icon fas fa-lock"></i>
+            <input type="password" class="login__input" id="confirmPassword" placeholder="Confirm Password" required oninput="checkMatch()" />
+            <div class="match" id="matchText"></div>
+          </div>
+        <button type="submit" class="login__submit">
             <span class="button__text">Log In Now</span>
             <i class="button__icon fas fa-chevron-right"></i>
           </button>
-          <button type="button" class="register-button" onclick="window.location.href='register.html'">Register</button>
+          
+          <button class="login__submit" onclick="window.location.href='login.html'">Back To Login</button>
+
         </form>
       </div>
+
       <div class="screen__background">
         <span class="screen__background__shape screen__background__shape4"></span>
         <span class="screen__background__shape screen__background__shape3"></span>
@@ -211,21 +256,26 @@
   </div>
 
   <script>
-    function handleLogin(event) {
-      event.preventDefault();
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
+    function checkStrength() {
+      const pass = document.getElementById('password').value;
+      const bar = document.getElementById('strengthBar');
 
-      if (username === "1234567890" && password === "1234") {
-        alert("Login successful!");
-      } else {
-        alert("Invalid username or password.");
-      }
+      let strength = 0;
+      if (pass.length > 5) strength++;
+      if (/[A-Z]/.test(pass)) strength++;
+      if (/[0-9]/.test(pass)) strength++;
+      if (/[\W]/.test(pass)) strength++;
+
+      const colors = ['red', 'orange', 'gold', 'green'];
+      bar.style.width = strength * 25 + '%';
+      bar.style.background = colors[strength - 1] || 'transparent';
     }
 
-    function handleRegister() {
-      alert("Redirecting to registration page...");
-      // window.location.href = "register.html";
+    function checkMatch() {
+      const pass = document.getElementById('password').value;
+      const confirm = document.getElementById('confirmPassword').value;
+      const text = document.getElementById('matchText');
+      text.textContent = pass && confirm && pass !== confirm ? 'Passwords do not match' : '';
     }
   </script>
 </body>
