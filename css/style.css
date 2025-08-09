@@ -156,12 +156,12 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 15px;
-            margin-top: 40px; /* Account for fixed header */
+            margin-top: 15px; /* Account for fixed header */
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 8px;
             margin-bottom: 100px;
         }
@@ -258,7 +258,7 @@
         /* Responsive */
         @media (max-width: 480px) {
             .grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 6px;
             }
             
