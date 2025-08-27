@@ -7,7 +7,7 @@
 
         /* Navbar */
     .songgi-navbar-wrapper {
-      background-color: #fff;
+      background: linear-gradient(135deg, #8a2be2 0%, #9c4dff 100%);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -20,7 +20,7 @@
     .songgi-brand-name {
       font-family: 'Unbounded', cursive;
       font-size: 45px;
-      color: #111;
+      color: white;
       letter-spacing: 2px;
     }
 
@@ -161,18 +161,15 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 8px;
             margin-bottom: 100px;
         }
 
         .card {
-            background: white;
             border-radius: 8px;
-            padding: 12px 8px;
+            padding: 12px 0px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             text-decoration: none;
             color: #333;
@@ -183,10 +180,6 @@
             align-items: center;
         }
 
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
 
         .card-icon {
             width: 60px;
@@ -195,9 +188,7 @@
             transition: transform 0.3s ease;
         }
 
-        .card:hover .card-icon {
-            transform: scale(1.1);
-        }
+
 
         .card-name {
             font-size: 11px;
