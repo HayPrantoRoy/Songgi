@@ -179,7 +179,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="extraIcon">   <!-- added id here -->
     <div class="screen">
       <div class="screen__content">
         <!-- TEXT-BASED LOGO -->
@@ -210,23 +210,53 @@
     </div>
   </div>
 
+  <style>
+    /* Smooth fade-out animation */
+    #extraIcon {
+      transition: opacity 1.5s ease;
+    }
+    #extraIcon.hidden {
+      opacity: 0;
+    }
+  </style>
+
   <script>
     function handleLogin(event) {
       event.preventDefault();
-      const username = document.getElementById("username").value.trim();
+      const username = document.getElementById("username").value.trim().toLowerCase();
       const password = document.getElementById("password").value.trim();
 
-      if (username === "1234567890" && password === "1234") {
-        alert("Login successful!");
+      // role mapping by username
+      const roleMap = {
+        "admin": 1,
+        "purchaseofficer": 2,
+        "stockkeeper": 3,
+        "productionmanager": 4,
+        "dipo": 5,
+        "dealer": 6,
+        "sr": 7,
+        "marketingmanager": 8,
+        "dsr": 9
+      };
+
+      if (password === "1234" && roleMap[username]) {
+        const role = roleMap[username];
+        const newUrl = "home.html?role=" + role; // redirect to home.html
+
+        // fade out login container
+        const icon = document.getElementById("extraIcon");
+        icon.classList.add("hidden");
+
+        // redirect after fade
+        setTimeout(() => {
+          window.location.href = newUrl;
+        }, 1500);
+
       } else {
         alert("Invalid username or password.");
       }
     }
-
-    function handleRegister() {
-      alert("Redirecting to registration page...");
-      // window.location.href = "register.html";
-    }
   </script>
 </body>
+
 </html>

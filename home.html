@@ -19,7 +19,209 @@ body {
   min-height: 100vh;
   padding-bottom: 120px;
 }
+  .songgi-main-navbar {
+            background: linear-gradient(135deg, #8a2be2 0%, #9c4dff 100%);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.25);
+            border-radius: 0 0 24px 24px;
+            margin: 0 auto;
+            max-width: 100%;
+            position: relative;
+        }
 
+        .songgi-nav-left-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .songgi-profile-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+            color: #8a2be2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .songgi-profile-avatar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+
+        .songgi-app-branding {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .songgi-brand-title {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .songgi-balance-display {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 8px 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 80px;
+            height: 44px;
+        }
+
+        .songgi-balance-icon {
+            width: 18px;
+            height: 18px;
+            fill: white;
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+
+        .songgi-balance-display:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .songgi-balance-placeholder-text {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .songgi-balance-actual-amount {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: absolute;
+            left: 16px;
+        }
+
+        .songgi-balance-display.songgi-show-amount .songgi-balance-placeholder-text {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .songgi-balance-display.songgi-show-amount .songgi-balance-actual-amount {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .songgi-nav-right-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .songgi-nav-icon-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .songgi-nav-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .songgi-nav-icon-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            stroke: white;
+            opacity: 0.9;
+        }
+
+        .songgi-notification-counter {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #8a2be2;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .songgi-main-navbar {
+                padding: 14px 18px;
+                border-radius: 0 0 20px 20px;
+            }
+            
+            .songgi-brand-title {
+                font-size: 20px;
+            }
+            
+            .songgi-profile-avatar {
+                font-size: 16px;
+            }
+
+            .songgi-nav-icon-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            .songgi-nav-icon-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .songgi-main-navbar {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+
+            .songgi-nav-left-section {
+                gap: 12px;
+            }
+
+            .songgi-nav-right-section {
+                gap: 8px;
+            }
+        }
 /* Sample content */
 .content {
   padding: 40px 20px;
@@ -196,93 +398,146 @@ body {
 </style>
 </head>
 <body>
-
-<div class="songgi-navbar-wrapper">
-    <div class="songgi-brand-name">Songgi</div>
-    <div class="songgi-toggle-button" onclick="toggleSonggiSlideMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-
-  <div class="songgi-slide-panel" id="songgiSlideMenu">
-    <div class="songgi-close-btn" onclick="toggleSonggiSlideMenu()">×</div>
-    <h3 class="songgi-slide-header">Menu</h3>
-    <a href="#" class="songgi-slide-link">Raw Material</a>
-    <a href="#" class="songgi-slide-link">Inventory</a>
-    <a href="#" class="songgi-slide-link">Dispatch</a>
-    <a href="#" class="songgi-slide-link">Payment</a>
-    <a href="#" class="songgi-slide-link">Orders</a>
-    <a href="#" class="songgi-slide-link">Received</a>
-    <a href="#" class="songgi-slide-link">Account</a>
-    <a href="#" class="songgi-slide-link">DSR Assign</a>
-    <a href="#" class="songgi-slide-link">Delivery</a>
-  </div>
-
+<nav class="songgi-main-navbar">
+        <div class="songgi-nav-left-section">
+            <div class="songgi-app-branding">
+                <div class="songgi-brand-title">Songgi</div>
+            </div>
+            <div class="songgi-balance-display" id="songgiBalanceToggle">
+                <img  class="songgi-balance-placeholder-text" src="img/account.png" width="20px">&nbsp;
+                <span class="songgi-balance-placeholder-text">Super Admin</span>
+            </div>
+        </div>
+        
+        <div class="songgi-nav-right-section">
+            <div class="songgi-nav-icon-btn" id="songgiNotificationCenter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <div class="songgi-notification-counter">5</div>
+            </div>    
+        </div>
+    </nav>
   <div class="songgi-overlay-bg" id="songgiOverlay" onclick="toggleSonggiSlideMenu()"></div>
     <div class="container">
         <!-- 4x3 Grid Cards -->
         <div class="grid">
-            <a href="#" class="card">
-                <img src="img/raw-materials.png" alt="Raw Material" class="card-icon">
-                <p class="card-name">Raw Material</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/inventory.png" alt="Inventory" class="card-icon">
-                <p class="card-name">Inventory</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/delivery-truck.png" alt="Dispatch" class="card-icon">
-                <p class="card-name">Dispatch</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/wallet.png" alt="Payment" class="card-icon">
-                <p class="card-name">Payment</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/check-out.png" alt="Orders" class="card-icon">
-                <p class="card-name">Orders</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/received.png" alt="Received" class="card-icon">
-                <p class="card-name">Received</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/profile.png" alt="Account" class="card-icon">
-                <p class="card-name">Account</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/report.png" alt="DSR Assign" class="card-icon">
-                <p class="card-name">DSR Assign</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/delivery-man.png" alt="Delivery" class="card-icon">
-                <p class="card-name">Delivery</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/material-management.png" alt="Customer Orders" class="card-icon">
-                <p class="card-name">Customer Orders</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/commision.png" alt="Commission" class="card-icon">
-                <p class="card-name">Commission</p>
-            </a>
-            
-            <a href="#" class="card">
-                <img src="img/management.png" alt="Management" class="card-icon">
-                <p class="card-name">Management</p>
-            </a>
+             <a href="#" class="card" data-name="Supplier">
+        <img src="img/vendor.png" alt="Supplier" class="card-icon">
+        <p class="card-name">Supplier</p>
+      </a>
+
+      <a href="#" class="card" data-name="Requisition">
+        <img src="img/request.png" alt="Requisition" class="card-icon">
+        <p class="card-name">Requisition</p>
+      </a>
+
+      <a href="#" class="card" data-name="Unit">
+        <img src="img/unit.png" alt="Unit" class="card-icon">
+        <p class="card-name">Unit</p>
+      </a>
+
+      <a href="#" class="card" data-name="Stock">
+        <img src="img/stock.png" alt="Stock" class="card-icon">
+        <p class="card-name">Stock</p>
+      </a>
+
+      <a href="#" class="card" data-name="Raw Material Warehouse">
+        <img src="img/warehouse.png" alt="Warehouse" class="card-icon">
+        <p class="card-name">Raw Material Warehouse</p>
+      </a>
+
+      <a href="#" class="card" data-name="Dealer Entry">
+        <img src="img/man.png" alt="Dealer Entry" class="card-icon">
+        <p class="card-name">Dealer Entry</p>
+      </a>
+
+      <a href="#" class="card" data-name="Order Approve">
+        <img src="img/stamp.png" alt="Approve" class="card-icon">
+        <p class="card-name">Order Approve</p>
+      </a>
+
+      <a href="#" class="card" data-name="Product Entry">
+        <img src="img/add-item.png" alt="Add Item" class="card-icon">
+        <p class="card-name">Product Entry</p>
+      </a>
+
+      <a href="#" class="card" data-name="Raw Material">
+        <img src="img/raw-materials.png" alt="Raw Material" class="card-icon">
+        <p class="card-name">Raw Material</p>
+      </a>
+
+      <a href="#" class="card" data-name="Inventory">
+        <img src="img/inventory.png" alt="Inventory" class="card-icon">
+        <p class="card-name">Inventory</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Dispatch">
+        <img src="img/delivery-truck.png" alt="Dispatch" class="card-icon">
+        <p class="card-name">Dispatch</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Payment">
+        <img src="img/wallet.png" alt="Payment" class="card-icon">
+        <p class="card-name">Payment</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Orders">
+        <img src="img/check-out.png" alt="Orders" class="card-icon">
+        <p class="card-name">Orders</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Received">
+        <img src="img/received.png" alt="Received" class="card-icon">
+        <p class="card-name">Received</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Account">
+        <img src="img/profile.png" alt="Account" class="card-icon">
+        <p class="card-name">Account</p>
+      </a>
+      
+      <a href="#" class="card" data-name="DSR Assign">
+        <img src="img/report.png" alt="DSR Assign" class="card-icon">
+        <p class="card-name">DSR Assign</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Delivery">
+        <img src="img/delivery-man.png" alt="Delivery" class="card-icon">
+        <p class="card-name">Delivery</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Customer Orders">
+        <img src="img/material-management.png" alt="Customer Orders" class="card-icon">
+        <p class="card-name">Customer Orders</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Commission">
+        <img src="img/commision.png" alt="Commission" class="card-icon">
+        <p class="card-name">Commission</p>
+      </a>
+      
+      <a href="#" class="card" data-name="Management">
+        <img src="img/management.png" alt="Management" class="card-icon">
+        <p class="card-name">Management</p>
+      </a>
+
+      <!-- Extra man.png roles -->
+      <a href="#" class="card" data-name="DSR Entry">
+        <img src="img/man.png" alt="DSR Entry" class="card-icon">
+        <p class="card-name">DSR Entry</p>
+      </a>
+
+      <a href="#" class="card" data-name="Customer Entry">
+        <img src="img/man.png" alt="Customer Entry" class="card-icon">
+        <p class="card-name">Customer Entry</p>
+      </a>
+
+      <a href="#" class="card" data-name="SR Entry">
+        <img src="img/man.png" alt="SR Entry" class="card-icon">
+        <p class="card-name">SR Entry</p>
+      </a>
         </div>
     </div>
 
@@ -335,5 +590,80 @@ document.addEventListener('DOMContentLoaded', function() {
       overlay.classList.toggle('active');
     }
   </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get("role");
+
+    // Role wise card names
+    const roleCards = {
+        "1": ["Supplier","Requisition","Unit","Stock","Raw Material Warehouse","Dealer Entry","Order Approve",
+              "Product Entry","Raw Material","Inventory","Dispatch","Payment","Orders","Received","Account",
+              "DSR Assign","Delivery","Customer Orders","Commission","Management","DSR Entry","Customer Entry","SR Entry"],
+
+        "2": ["Supplier","Requisition","Unit","Received","Stock","Raw Material Warehouse"],
+
+        "3": ["Received","Stock","Raw Material Warehouse"],
+
+        "4": ["Product Entry","Stock","Raw Material Warehouse"],
+
+        "5": ["Requisition","Received","Stock","Payment","Delivery","Dealer Entry"],
+
+        "6": ["Requisition","Received","Stock","Payment","Delivery","DSR Entry"],
+
+        "7": ["Requisition","Customer Entry","Payment"],
+
+        "8": ["Order Approve","SR Entry"],
+
+        "9": ["Delivery","Payment"]
+    };
+
+    // Cache cards in a map for fast access
+    const cardsMap = {};
+    document.querySelectorAll(".card").forEach(card => {
+        const name = card.dataset.name;
+        cardsMap[name] = card;
+        card.style.display = "none"; // hide all in one loop
+    });
+
+    // Show only allowed ones
+    if (role && roleCards[role]) {
+        roleCards[role].forEach(name => {
+            if (cardsMap[name]) {
+                cardsMap[name].style.display = "block";
+            }
+        });
+    }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get("role");
+
+    // Role → Name mapping
+    const roleNames = {
+        "1": "Super Admin",
+        "2": "Purchase Officer",
+        "3": "Stock Keeper",
+        "4": "Production Manager",
+        "5": "Dipo Manager",
+        "6": "Dealer",
+        "7": "SR",
+        "8": "Marketing Manager",
+        "9": "DSR"
+    };
+
+    // Update the span text if role exists
+    if (role && roleNames[role]) {
+        const span = document.querySelector("#songgiBalanceToggle .songgi-balance-placeholder-text:last-child");
+        if (span) {
+            span.textContent = roleNames[role];
+        }
+    }
+});
+</script>
+
+
 </body>
 </html>
