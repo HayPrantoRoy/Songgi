@@ -395,6 +395,123 @@ body {
     transform: translateY(-25px);
   }
 }
+
+  .ad-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ad-slider {
+    position: relative;
+    width: 100%;
+  }
+
+  .ad-slide {
+    display: none;
+    width: 100%;
+  }
+
+  .ad-slide.active {
+    display: block;
+  }
+
+  .ad-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ad-navigation {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+
+  .ad-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ad-dot.active {
+    background-color: white;
+    width: 16px;
+    height: 16px;
+    border-color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .ad-navigation {
+      bottom: 10px;
+    }
+
+    .ad-slide img {
+      width: 100%;
+      height: 100%;
+      /* Full height of the screen */
+      object-fit: cover;
+      /* Ensures the image covers the full space */
+    }
+  }
+    .modal0,
+    .modal1,
+    .modal2 {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content0,
+    .modal-content1,
+    .modal-content2 {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .closed {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .closed:hover,
+    .closed:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -419,6 +536,25 @@ body {
             </div>    
         </div>
     </nav>
+<br>
+    <div id="Content" style="min-height: 600px !important;">
+        
+        <!-- header section end -->
+
+        <main class="main-wrapper bg-light">
+            <!-- Slider Section Start-->
+            <!-- Slider Section -->
+             <div class="ad-slider-container" id="sliderContainer">
+        <div class="ad-slider">
+            <div class="ad-slide active">
+                <img src="img/sliderimage2.png" alt="Slide 1">
+            </div>
+            <div class="ad-slide">
+                <img src="img/sliderimage.png" alt="Slide 2">
+            </div>
+        </div>
+        <div class="ad-navigation"></div>
+    </div>
   <div class="songgi-overlay-bg" id="songgiOverlay" onclick="toggleSonggiSlideMenu()"></div>
     <div class="container">
         <!-- 4x3 Grid Cards -->
@@ -557,7 +693,111 @@ body {
     <i class="nav-icon fas fa-user"></i>
   </div>
 </div>
+ <script>
+        class AdSlider {
+            constructor(container) {
+                this.container = container;
+                this.slides = Array.from(container.querySelectorAll('.ad-slide'));
+                this.navigation = container.querySelector('.ad-navigation');
+                this.currentIndex = 0;
+                this.autoPlayInterval = null;
+                this.init();
+            }
 
+            init() {
+                this.slides.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('ad-dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    this.navigation.appendChild(dot);
+                });
+
+                window.addEventListener('load', () => this.updateHeight());
+                window.addEventListener('resize', () => this.updateHeight());
+
+                this.startAutoPlay();
+            }
+
+            updateHeight() {
+                const img = this.slides[this.currentIndex].querySelector('img');
+                if (img.complete) {
+                    this.container.style.height = img.offsetHeight + 'px';
+                } else {
+                    img.onload = () => {
+                        this.container.style.height = img.offsetHeight + 'px';
+                    };
+                }
+            }
+
+            goToSlide(index) {
+                this.slides[this.currentIndex].classList.remove('active');
+                this.navigation.children[this.currentIndex].classList.remove('active');
+
+                this.currentIndex = index;
+
+                this.slides[this.currentIndex].classList.add('active');
+                this.navigation.children[this.currentIndex].classList.add('active');
+
+                this.updateHeight();
+            }
+
+            startAutoPlay() {
+                this.autoPlayInterval = setInterval(() => {
+                    let nextIndex = (this.currentIndex + 1) % this.slides.length;
+                    this.goToSlide(nextIndex);
+                }, 4000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdSlider(document.querySelector('.ad-slider-container'));
+        });
+        
+        // Check if searchInput exists before adding event listener
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                var searchValue = this.value.toLowerCase();
+                var cards = document.querySelectorAll('.category-card-a');
+                var container = document.querySelector('.category-grid');
+
+                // If search is empty, reset display
+                if (searchValue === '') {
+                    cards.forEach(function(card) {
+                        card.style.display = 'block';
+                        card.style.visibility = 'visible';
+                    });
+                    return;
+                }
+
+                // Hide all cards
+                cards.forEach(function(card) {
+                    card.style.display = 'none';
+                    card.style.visibility = 'hidden';
+                });
+
+                // Filter and show matching cards
+                var matchingCards = Array.from(cards).filter(function(card) {
+                    var englishName = card.querySelector('.category-name-english').textContent.toLowerCase();
+                    var bengaliName = card.querySelector('.category-name-bengali').textContent.toLowerCase();
+
+                    return englishName.includes(searchValue) || bengaliName.includes(searchValue);
+                });
+
+                // Show matching cards
+                matchingCards.forEach(function(card) {
+                    card.style.display = 'block';
+                    card.style.visibility = 'visible';
+                });
+
+                // Reorder matching cards to the top
+                matchingCards.forEach(function(card) {
+                    container.prepend(card);
+                });
+            });
+        }
+    </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const navItems = document.querySelectorAll('.nav-item');

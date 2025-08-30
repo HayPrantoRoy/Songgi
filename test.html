@@ -3,324 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Songgi Navigation</title>
+    <title>Simple Modern Image Slider</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+       .ad-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  .ad-slider {
+    position: relative;
+    width: 100%;
+  }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-        }
+  .ad-slide {
+    display: none;
+    width: 100%;
+  }
 
-        .songgi-main-navbar {
-            background: linear-gradient(135deg, #8a2be2 0%, #9c4dff 100%);
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.25);
-            border-radius: 0 0 24px 24px;
-            margin: 0 auto;
-            max-width: 100%;
-            position: relative;
-        }
+  .ad-slide.active {
+    display: block;
+  }
 
-        .songgi-nav-left-section {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex: 1;
-        }
+  .ad-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 
-        .songgi-profile-avatar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 18px;
-            color: #8a2be2;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+  .ad-navigation {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
 
-        .songgi-profile-avatar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
-        }
+  .ad-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 
-        .songgi-app-branding {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
+  .ad-dot.active {
+    background-color: white;
+    width: 16px;
+    height: 16px;
+    border-color: transparent;
+  }
 
-        .songgi-brand-title {
-            color: white;
-            font-size: 24px;
-            font-weight: 700;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+  @media (max-width: 768px) {
+    .ad-navigation {
+      bottom: 10px;
+    }
 
-        .songgi-balance-display {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 8px 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            min-width: 80px;
-            height: 44px;
-        }
+    .ad-slide img {
+      width: 100%;
+      height: 100%;
+      /* Full height of the screen */
+      object-fit: cover;
+      /* Ensures the image covers the full space */
+    }
+  }
+    .modal0,
+    .modal1,
+    .modal2 {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
 
-        .songgi-balance-icon {
-            width: 18px;
-            height: 18px;
-            fill: white;
-            opacity: 0.9;
-            flex-shrink: 0;
-        }
+    /* Modal Content */
+    .modal-content0,
+    .modal-content1,
+    .modal-content2 {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
 
-        .songgi-balance-display:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-1px);
-        }
+    /* The Close Button */
+    .closed {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-        .songgi-balance-placeholder-text {
-            color: white;
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.9;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .songgi-balance-actual-amount {
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            opacity: 0;
-            transform: translateX(10px);
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            position: absolute;
-            left: 16px;
-        }
-
-        .songgi-balance-display.songgi-show-amount .songgi-balance-placeholder-text {
-            opacity: 0;
-            transform: translateX(-10px);
-        }
-
-        .songgi-balance-display.songgi-show-amount .songgi-balance-actual-amount {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .songgi-nav-right-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .songgi-nav-icon-btn {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
-
-        .songgi-nav-icon-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .songgi-nav-icon-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-            stroke: white;
-            opacity: 0.9;
-        }
-
-        .songgi-notification-counter {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #8a2be2;
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            padding: 10px 6px;
-            border-radius: 10px;
-            min-width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .songgi-main-navbar {
-                padding: 14px 18px;
-                border-radius: 0 0 20px 20px;
-            }
-            
-            .songgi-brand-title {
-                font-size: 20px;
-            }
-            
-            .songgi-profile-avatar {
-                font-size: 16px;
-            }
-
-            .songgi-nav-icon-btn {
-                width: 40px;
-                height: 40px;
-            }
-
-            .songgi-nav-icon-btn svg {
-                width: 18px;
-                height: 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .songgi-main-navbar {
-                padding: 12px 16px;
-                gap: 12px;
-            }
-
-            .songgi-nav-left-section {
-                gap: 12px;
-            }
-
-            .songgi-nav-right-section {
-                gap: 8px;
-            }
-        }
+    .closed:hover,
+    .closed:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
     </style>
 </head>
 <body>
-    <nav class="songgi-main-navbar">
-        <div class="songgi-nav-left-section">
-            <div class="songgi-profile-avatar" id="songgiProfileButton">
-               <img src="img/account.png" width="50px" alt="">
-            </div>
-            <div class="songgi-app-branding">
-                <div class="songgi-brand-title">Songgi</div>
-            </div>
-            <div class="songgi-balance-display" id="songgiBalanceToggle">
-                <span class="songgi-balance-placeholder-text">৳ Show Balance</span>
-                <span class="songgi-balance-actual-amount">৳ 2,450</span>
-            </div>
-        </div>
+    <div id="Content" style="min-height: 600px !important;">
         
-        <div class="songgi-nav-right-section">
-            <div class="songgi-nav-icon-btn" id="songgiNotificationCenter">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                </svg>
-                <div class="songgi-notification-counter">5</div>
+        <!-- header section end -->
+
+        <main class="main-wrapper bg-light">
+            <!-- Slider Section Start-->
+            <!-- Slider Section -->
+             <div class="ad-slider-container" id="sliderContainer">
+        <div class="ad-slider">
+            <div class="ad-slide active">
+                <img src="img/sliderimage.png" alt="Slide 1">
             </div>
-            
-            <div class="songgi-nav-icon-btn" id="songgiShoppingCart">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"></path>
-                    <circle cx="9" cy="20" r="1"></circle>
-                    <circle cx="20" cy="20" r="1"></circle>
-                </svg>
+            <div class="ad-slide">
+                <img src="img/sliderimage.png" alt="Slide 2">
+            </div>
+            <div class="ad-slide">
+                <img src="img/sliderimage.png" alt="Slide 2">
             </div>
         </div>
-    </nav>
-
-    <script>
-        let songgiBalanceVisibilityTimer;
-
-        // Profile button interaction
-        document.getElementById('songgiProfileButton').addEventListener('click', function() {
-            this.style.transform = 'scale(0.95) translateY(-2px)';
-            setTimeout(() => {
-                this.style.transform = 'translateY(-2px)';
-            }, 150);
-            console.log('Songgi Profile clicked');
-        });
-
-        // Balance button interaction - slide text animation
-        document.getElementById('songgiBalanceToggle').addEventListener('click', function() {
-            const songgiBalanceContainer = this;
-            
-            // Add show-amount class for slide effect
-            songgiBalanceContainer.classList.add('songgi-show-amount');
-            
-            // Clear existing timeout
-            if (songgiBalanceVisibilityTimer) {
-                clearTimeout(songgiBalanceVisibilityTimer);
+        <div class="ad-navigation"></div>
+    </div>
+   <script>
+        class AdSlider {
+            constructor(container) {
+                this.container = container;
+                this.slides = Array.from(container.querySelectorAll('.ad-slide'));
+                this.navigation = container.querySelector('.ad-navigation');
+                this.currentIndex = 0;
+                this.autoPlayInterval = null;
+                this.init();
             }
-            
-            // Hide balance after 5 seconds
-            songgiBalanceVisibilityTimer = setTimeout(() => {
-                songgiBalanceContainer.classList.remove('songgi-show-amount');
-            }, 5000);
-            
-            console.log('Songgi Balance clicked - showing amount for 5 seconds');
-        });
 
-        // Notification button interaction
-        document.getElementById('songgiNotificationCenter').addEventListener('click', function() {
-            this.style.transform = 'scale(0.9) translateY(-2px)';
-            setTimeout(() => {
-                this.style.transform = 'translateY(-2px)';
-            }, 150);
-            console.log('Songgi Notifications clicked');
-        });
+            init() {
+                this.slides.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('ad-dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    this.navigation.appendChild(dot);
+                });
 
-        // Shop button interaction
-        document.getElementById('songgiShoppingCart').addEventListener('click', function() {
-            this.style.transform = 'scale(0.9) translateY(-2px)';
-            setTimeout(() => {
-                this.style.transform = 'translateY(-2px)';
-            }, 150);
-            console.log('Songgi Shop clicked');
-        });
+                window.addEventListener('load', () => this.updateHeight());
+                window.addEventListener('resize', () => this.updateHeight());
 
-        // Enhanced hover effects
-        document.querySelectorAll('.songgi-nav-icon-btn, .songgi-balance-display, .songgi-profile-avatar').forEach(element => {
-            element.addEventListener('mouseenter', function() {
-                if (!this.style.transform.includes('scale')) {
-                    this.style.transform = 'translateY(-2px)';
+                this.startAutoPlay();
+            }
+
+            updateHeight() {
+                const img = this.slides[this.currentIndex].querySelector('img');
+                if (img.complete) {
+                    this.container.style.height = img.offsetHeight + 'px';
+                } else {
+                    img.onload = () => {
+                        this.container.style.height = img.offsetHeight + 'px';
+                    };
                 }
-            });
-            
-            element.addEventListener('mouseleave', function() {
-                if (!this.style.transform.includes('scale')) {
-                    this.style.transform = 'translateY(0)';
-                }
-            });
+            }
+
+            goToSlide(index) {
+                this.slides[this.currentIndex].classList.remove('active');
+                this.navigation.children[this.currentIndex].classList.remove('active');
+
+                this.currentIndex = index;
+
+                this.slides[this.currentIndex].classList.add('active');
+                this.navigation.children[this.currentIndex].classList.add('active');
+
+                this.updateHeight();
+            }
+
+            startAutoPlay() {
+                this.autoPlayInterval = setInterval(() => {
+                    let nextIndex = (this.currentIndex + 1) % this.slides.length;
+                    this.goToSlide(nextIndex);
+                }, 4000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdSlider(document.querySelector('.ad-slider-container'));
         });
+        
+        // Check if searchInput exists before adding event listener
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                var searchValue = this.value.toLowerCase();
+                var cards = document.querySelectorAll('.category-card-a');
+                var container = document.querySelector('.category-grid');
+
+                // If search is empty, reset display
+                if (searchValue === '') {
+                    cards.forEach(function(card) {
+                        card.style.display = 'block';
+                        card.style.visibility = 'visible';
+                    });
+                    return;
+                }
+
+                // Hide all cards
+                cards.forEach(function(card) {
+                    card.style.display = 'none';
+                    card.style.visibility = 'hidden';
+                });
+
+                // Filter and show matching cards
+                var matchingCards = Array.from(cards).filter(function(card) {
+                    var englishName = card.querySelector('.category-name-english').textContent.toLowerCase();
+                    var bengaliName = card.querySelector('.category-name-bengali').textContent.toLowerCase();
+
+                    return englishName.includes(searchValue) || bengaliName.includes(searchValue);
+                });
+
+                // Show matching cards
+                matchingCards.forEach(function(card) {
+                    card.style.display = 'block';
+                    card.style.visibility = 'visible';
+                });
+
+                // Reorder matching cards to the top
+                matchingCards.forEach(function(card) {
+                    container.prepend(card);
+                });
+            });
+        }
     </script>
 </body>
 </html>
