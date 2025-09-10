@@ -519,7 +519,7 @@
         <input type="hidden" id="editIndex">
         <input type="text" id="unitNameInput" placeholder="Enter unit name...">
         <button id="saveBtn" onclick="saveUnit()">
-          <i class="fas fa-plus"></i>Add Unit
+          <i class="fas fa-plus"></i>Add
         </button>
       </div>
     </div>
@@ -615,7 +615,7 @@ function saveUnit() {
 function editUnit(index) {
   document.getElementById('unitNameInput').value = units[index];
   editIndex = index;
-  document.getElementById("saveBtn").innerHTML = '<i class="fas fa-save"></i> Update';
+  document.getElementById("saveBtn").innerHTML = 'Update';
   document.getElementById('unitNameInput').focus();
 }
 
