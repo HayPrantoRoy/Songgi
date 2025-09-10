@@ -366,27 +366,29 @@
   }
   
   .unit-form {
-    padding: 25px 20px;
-    border-radius: 16px;
+    padding: 20px;
+    border-radius: 14px;
   }
   
-  .form-group {
-    display: flex;
+    .form-group {
+    flex-direction: column;
     gap: 12px;
-    align-items: center;
+    align-items: stretch;
   }
   
   .unit-form input[type="text"] {
-    padding: 14px 16px;
-    font-size: 15px;
-    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px; /* Larger font for mobile */
+    border-radius: 10px;
+    width: 100%;
   }
   
   .unit-form button {
-    padding: 14px 20px;
-    font-size: 14px;
-    border-radius: 12px;
-    min-width: 120px;
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 10px;
+    min-width: auto;
+    width: 100%;
   }
   
   .stats-bar {
@@ -432,30 +434,22 @@
 
 @media (max-width: 480px) {
   .unit-entry-container {
-    margin: 5px;
-    padding: 10px;
+    margin: 8px;
+    padding: 12px;
   }
   
   .unit-form {
-    padding: 20px 15px;
-    border-radius: 14px;
-  }
-  
-  .form-group {
-    gap: 10px;
+    padding: 16px;
   }
   
   .unit-form input[type="text"] {
-    font-size: 14px;
-    padding: 12px 14px;
-    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px; /* Maintain larger font size for readability */
   }
   
   .unit-form button {
-    font-size: 13px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    min-width: 100px;
+    padding: 14px;
+    font-size: 16px;
   }
   
   .search-box {
@@ -522,7 +516,7 @@
         <input type="hidden" id="editIndex">
         <input type="text" id="unitNameInput" placeholder="Enter unit name...">
         <button id="saveBtn" onclick="saveUnit()">
-          Add Unit
+          <i class="fas fa-plus"></i>Add Unit
         </button>
       </div>
     </div>
