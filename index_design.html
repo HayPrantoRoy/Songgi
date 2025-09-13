@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="dynamic-ui-editor.css">
-<script src="dynamic-ui-editor.js"></script>
+    <script src="dynamic-ui-editor.js"></script>
     <link rel="stylesheet" href="css/style_css.css">
 
     <title>Songgi</title>
 </head>
+
 <body>
     <div class="songgi-navbar-wrapper">
-    <div class="songgi-brand-name">Songgi</div>
-    <div class="songgi-toggle-button" onclick="toggleSonggiSlideMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
+        <div class="songgi-brand-name">Songgi</div>
+        <div class="songgi-toggle-button" onclick="toggleSonggiSlideMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-  </div>
 
-  <div class="songgi-slide-panel" id="songgiSlideMenu">
-    <div class="songgi-close-btn" onclick="toggleSonggiSlideMenu()">×</div>
-    <h3 class="songgi-slide-header">Menu</h3>
-    <a href="#" class="songgi-slide-link">Raw Material</a>
-    <a href="#" class="songgi-slide-link">Inventory</a>
-    <a href="#" class="songgi-slide-link">Dispatch</a>
-    <a href="#" class="songgi-slide-link">Payment</a>
-    <a href="#" class="songgi-slide-link">Orders</a>
-    <a href="#" class="songgi-slide-link">Received</a>
-    <a href="#" class="songgi-slide-link">Account</a>
-    <a href="#" class="songgi-slide-link">DSR Assign</a>
-    <a href="#" class="songgi-slide-link">Delivery</a>
-  </div>
+    <div class="songgi-slide-panel" id="songgiSlideMenu">
+        <div class="songgi-close-btn" onclick="toggleSonggiSlideMenu()">×</div>
+        <h3 class="songgi-slide-header">Menu</h3>
+        <a href="#" class="songgi-slide-link">Raw Material</a>
+        <a href="#" class="songgi-slide-link">Inventory</a>
+        <a href="#" class="songgi-slide-link">Dispatch</a>
+        <a href="#" class="songgi-slide-link">Payment</a>
+        <a href="#" class="songgi-slide-link">Orders</a>
+        <a href="#" class="songgi-slide-link">Received</a>
+        <a href="#" class="songgi-slide-link">Account</a>
+        <a href="#" class="songgi-slide-link">DSR Assign</a>
+        <a href="#" class="songgi-slide-link">Delivery</a>
+    </div>
 
-  <div class="songgi-overlay-bg" id="songgiOverlay" onclick="toggleSonggiSlideMenu()"></div>
+    <div class="songgi-overlay-bg" id="songgiOverlay" onclick="toggleSonggiSlideMenu()"></div>
     <div class="container">
         <!-- 4x3 Grid Cards -->
         <div class="grid">
@@ -41,57 +43,57 @@
                 <img src="img/raw-materials.png" alt="Raw Material" class="card-icon">
                 <p class="card-name">Raw Material</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/inventory.png" alt="Inventory" class="card-icon">
                 <p class="card-name">Inventory</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/delivery-truck.png" alt="Dispatch" class="card-icon">
                 <p class="card-name">Dispatch</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/wallet.png" alt="Payment" class="card-icon">
                 <p class="card-name">Payment</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/check-out.png" alt="Orders" class="card-icon">
                 <p class="card-name">Orders</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/received.png" alt="Received" class="card-icon">
                 <p class="card-name">Received</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/profile.png" alt="Account" class="card-icon">
                 <p class="card-name">Account</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/report.png" alt="DSR Assign" class="card-icon">
                 <p class="card-name">DSR Assign</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/delivery-man.png" alt="Delivery" class="card-icon">
                 <p class="card-name">Delivery</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/material-management.png" alt="Customer Orders" class="card-icon">
                 <p class="card-name">Customer Orders</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/commision.png" alt="Commission" class="card-icon">
                 <p class="card-name">Commission</p>
             </a>
-            
+
             <a href="#" class="card">
                 <img src="img/management.png" alt="Management" class="card-icon">
                 <p class="card-name">Management</p>
@@ -99,15 +101,16 @@
         </div>
     </div>
 
-    
- <script>
-    function toggleSonggiSlideMenu() {
-      const menu = document.getElementById('songgiSlideMenu');
-      const overlay = document.getElementById('songgiOverlay');
-      menu.classList.toggle('active');
-      overlay.classList.toggle('active');
-    }
-  </script>
-    
+
+    <script>
+        function toggleSonggiSlideMenu() {
+            const menu = document.getElementById('songgiSlideMenu');
+            const overlay = document.getElementById('songgiOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+
 </body>
+
 </html>

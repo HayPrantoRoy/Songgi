@@ -1,248 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Songgi - Company Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway:wght@400;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Raleway', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(90deg, #C7C5F4, #776BCC);
-    }
-
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .screen {
-      background: linear-gradient(90deg, #5D54A4, #7C78B8);
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 20px;
-      box-shadow: 0px 0px 24px #5C5696;
-      overflow: hidden;
-    }
-
-    .screen__content {
-      position: relative;
-      z-index: 1;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .text-logo {
-      font-family: 'Unbounded', cursive;
-      font-size: 38px;
-      color: #81818a;
-      margin-bottom: 20px;
-      margin-right: 65%;
-    }
-
-    .register {
-      width: 100%;
-    }
-
-    .login__field {
-      padding: 12px 0px;
-      position: relative;
-    }
-
-    .login__icon {
-      position: absolute;
-      top: 24px;
-      left: 0;
-      color: #7875B5;
-    }
-
-    .login__input {
-      border: none;
-      border-bottom: 2px solid #D1D1D4;
-      background: none;
-      padding: 10px 10px 10px 26px;
-      font-weight: 700;
-      width: 100%;
-      transition: .2s;
-      color: black;
-    }
-
-    .login__input:focus {
-      outline: none;
-       border-bottom-color: #6A679E;
-    }
-
-    .login__input::placeholder {
-      color: #8a8a99;
-    }
-
-    .login__submit,
-    .register-button {
-      background: #fff;
-      font-size: 14px;
-      margin-top: 20px;
-      padding: 16px 20px;
-      border-radius: 26px;
-      border: 1px solid #D4D3E8;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      color: #4C489D;
-      box-shadow: 0px 2px 2px #5C5696;
-      cursor: pointer;
-      transition: .2s;
-    }
-
-    .login__submit:hover,
-    .register-button:hover {
-      transform: scale(1.03);
-    }
-
-    .button__icon {
-      font-size: 24px;
-      margin-left: auto;
-      color: #7875B5;
-    }
-
-    .strength {
-      height: 6px;
-      width: 100%;
-      margin-top: 4px;
-      border-radius: 4px;
-      transition: 0.3s;
-    }
-
-    .match {
-      font-size: 12px;
-      color: black;
-      margin-top: 4px;
-    }
-
-    input[type="file"] {
-      color: white;
-      font-size: 12px;
-    }
-
-    .screen__background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 0;
-    }
-
-    .screen__background__shape {
-      transform: rotate(45deg);
-      position: absolute;
-    }
-
-    .screen__background__shape1 {
-      height: 520px;
-      width: 520px;
-      background: #FFF;
-      top: -50px;
-      right: 120px;
-      border-radius: 0 72px 0 0;
-    }
-
-    .screen__background__shape2 {
-      height: 220px;
-      width: 220px;
-      background: #6C63AC;
-      top: -172px;
-      right: 0;
-      border-radius: 32px;
-    }
-
-    .screen__background__shape3 {
-      height: 540px;
-      width: 190px;
-      background: linear-gradient(270deg, #5D54A4, #6A679E);
-      top: -24px;
-      right: 0;
-      border-radius: 32px;
-    }
-
-    .screen__background__shape4 {
-      height: 400px;
-      width: 200px;
-      background: #7E7BB9;
-      top: 420px;
-      right: 50px;
-      border-radius: 60px;
-    }
-
-    @media screen and (max-width: 400px) {
-      .screen {
-        width: 100%;
-        margin: 0 10px;
-      }
-
-      .text-logo {
-        font-size: 40px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/register.css">
 </head>
+
 <body>
   <div class="container">
     <div class="screen">
       <div class="screen__content">
         <div class="text-logo">Songgi</div>
 
-        <form class="register">
-          
+        <!-- direct POST to PHP -->
+        <form action="API/register.php" method="POST" class="register">
           <div class="login__field">
             <i class="login__icon fas fa-user"></i>
-            <input type="text" class="login__input" placeholder="Your Name" required />
+            <input type="text" name="name" class="login__input" placeholder="Your Name" required />
           </div>
           <div class="login__field">
             <i class="login__icon fas fa-building"></i>
-            <input type="text" class="login__input" placeholder="Company Name" required />
+            <input type="text" name="company_name" class="login__input" placeholder="Company Name" required />
           </div>
           <div class="login__field">
             <i class="login__icon fas fa-envelope"></i>
-            <input type="email" class="login__input" placeholder="Email" required />
+            <input type="email" name="email" class="login__input" placeholder="Email" required />
           </div>
           <div class="login__field">
-            <i class="login__icon fa-solid fa-phone-volume"></i>
-            <input type="tel" class="login__input" placeholder="Mobile Number" required />
+            <i class="login__icon fas fa-phone"></i>
+            <input type="tel" name="mobile_no" class="login__input" placeholder="Mobile Number" required />
           </div>
           <div class="login__field">
             <i class="login__icon fas fa-lock"></i>
-            <input type="password" class="login__input" id="password" placeholder="Password" required oninput="checkStrength()" />
+            <input type="password" name="password" class="login__input" id="password" placeholder="Password"
+              oninput="checkStrength()" required />
             <div class="strength" id="strengthBar"></div>
           </div>
           <div class="login__field">
             <i class="login__icon fas fa-lock"></i>
-            <input type="password" class="login__input" id="confirmPassword" placeholder="Confirm Password" required oninput="checkMatch()" />
+            <input type="password" class="login__input" id="confirmPassword" placeholder="Confirm Password"
+              oninput="checkMatch()" required />
             <div class="match" id="matchText"></div>
           </div>
-        <button type="submit" class="login__submit">
+          <button type="submit" class="login__submit">
             <span class="button__text">Register Now</span>
             <i class="button__icon fas fa-chevron-right"></i>
           </button>
-          
-          <button class="login__submit" onclick="window.location.href='login.html'">Back To Login</button>
 
+          <button type="button" class="login__submit" onclick="window.location.href='login.html'">Back To Login</button>
         </form>
       </div>
 
@@ -279,4 +90,5 @@
     }
   </script>
 </body>
+
 </html>
